@@ -1,3 +1,4 @@
+using DMAWS_T2204M_TranHung;
 using DMAWS_T2204M_TranHung.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+// Add AutoMapper configuration
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Add connection to databbase.
 var connectionString = builder.Configuration.GetConnectionString("T2204M_ASPNET_API");
