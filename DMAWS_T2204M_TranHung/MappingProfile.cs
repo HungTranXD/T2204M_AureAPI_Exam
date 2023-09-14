@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DMAWS_T2204M_TranHung.DTOs;
 using DMAWS_T2204M_TranHung.Models;
+using DMAWS_T2204M_TranHung.ViewModels;
 
 namespace DMAWS_T2204M_TranHung
 {
@@ -8,9 +9,12 @@ namespace DMAWS_T2204M_TranHung
     {
         public MappingProfile()
         {
-            CreateMap<Project, ProjectDTO>().ReverseMap();
-            CreateMap<Employee, EmployeeDTO>().ReverseMap();
-            CreateMap<ProjectEmployee, ProjectEmployeeDTO>().ReverseMap();
+            CreateMap<Project, ProjectDTO>();
+            CreateMap<Employee, EmployeeDTO>();
+            CreateMap<ProjectEmployee, ProjectEmployeeDTO>();
+
+            CreateMap<ProjectCreateModel, Project>();
+            CreateMap<EmployeeCreateModel, Employee>();
         }
     }
 }

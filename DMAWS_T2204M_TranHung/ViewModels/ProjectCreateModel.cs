@@ -16,7 +16,5 @@ namespace DMAWS_T2204M_TranHung.ViewModels
         [Required]
         [DataType(DataType.Date)]
         public DateTime? ProjectEndDate { get; set; }
-
-        public virtual ICollection<ProjectEmployee> ProjectEmployees { get; set; }
     }
 }
