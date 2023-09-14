@@ -28,15 +28,37 @@ namespace DMAWS_T2204M_TranHung.Controllers
 
         // GET: api/Employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployees()
+        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployees(string? employeeName = null,
+            DateTime? employeeDOBFromDate = null,
+            DateTime? employeeDOBToDate = null)
         {
-            var employees = _context.Employees.ToListAsync();
+            var query = _context.Employees.AsQueryable();
 
-            if (employees == null)
+            // Filter by employeeName if provided
+            if (!string.IsNullOrEmpty(employeeName))
+            {
+                query = query.Where(e => e.EmployeeName.Contains(employeeName));
+            }
+
+            // Filter by employeeDOBFromDate if provided
+            if (employeeDOBFromDate.HasValue)
+            {
+                query = query.Where(e => e.EmployeeDOB >= employeeDOBFromDate);
+            }
+
+            // Filter by employeeDOBToDate if provided
+            if (employeeDOBToDate.HasValue)
+            {
+                query = query.Where(e => e.EmployeeDOB <= employeeDOBToDate);
+            }
+
+            var employees = await query.ToListAsync();
+
+            if (employees == null || employees.Count == 0)
             {
                 return NotFound();
             }
-            
+
             var employeeDTOs = _mapper.Map<List<EmployeeDTO>>(employees);
 
             return employeeDTOs;
